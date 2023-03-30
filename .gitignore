@@ -1,0 +1,13 @@
+.DS_Store
+
+*.pdf
+__pycache__
+*.log
+*.egg-info
+*build
+dist
+*.whl
+*.tar
+*.gz
+*terraform.lock.hcl
+.terragrunt-cache

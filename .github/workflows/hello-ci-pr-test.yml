@@ -1,0 +1,62 @@
+name: 'ci pr'
+
+on:
+  pull_request:
+    paths:
+      - "hello-app/**"
+permissions:
+  pull-requests: write
+  contents: 'read'
+  id-token: 'write'
+
+env:
+  BUILD_VERSION: 2023.3
+
+jobs:
+  pr:
+    name: 'pr-test'
+    runs-on: [self-hosted]
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: 'Checkout'
+      uses: actions/checkout@v3
+
+    - name: 'Python install'
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: 'test app'
+      run: |
+        cd hello-app
+        pip install .
+        yaw start & 
+
+    - name: 'test pkg build'
+      run: |
+        cd hello-app
+        pip install -r requirements.txt
+        python -m build
+
+    - name: 'test image build'
+      run: |
+        docker build -f ./hello-app/Dockerfile ./hello-app/
+
+    #- name: 'Configure aws credentials'
+      #uses: aws-actions/configure-aws-credentials@v1
+      #env:
+        #AWS_REGION: 'us-west-1'
+      #with:
+        #aws-region: ${{ env.AWS_REGION }}
+    #- name: 'test deployment'
+      #uses: cds-snc/terraform-plan@v2
+      #with:
+        #directory: "infra/live/cloud/aws/yaw-eng-act/us-west-1/dev/yaw-svc"
+        #comment-delete: "true"
+        #comment-title: "deployment: yaw"
+        #github-token: "${{ secrets.GITHUB_TOKEN }}"
+        #terragrunt: "true"
