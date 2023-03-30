@@ -12,7 +12,8 @@ yet another webserver
 ## Installation
 
 ### prereq
-docker, python 3.11, pip, terragrunt, terraform, nektos/act (optional)
+docker, python 3.11, pip, terragrunt, terraform, nektos/act
+
 github token
 
 ## Build
