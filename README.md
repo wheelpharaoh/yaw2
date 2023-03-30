@@ -19,7 +19,7 @@ github token
 ```sh
 cd hello-app
 pip install -r requirements
-pythpn -m build
+python -m build
 ```
 
 ## Deploy
