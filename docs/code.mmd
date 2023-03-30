@@ -1,0 +1,28 @@
+graph LR;
+
+subgraph sn_fw
+  fgw 
+end
+subgraph sn_pub
+  ngw
+  ingress_ctrl
+end
+subgraph sn_prv
+  app
+end
+subgraph az1
+    sn_fw
+    sn_prv
+    sn_pub
+end
+subgraph myvpc
+    az1
+    igw
+end
+
+subgraph ue1
+  myvpc
+end
+
+
+customer --> site.tld --> igw --> fgw --> ngw --> ingress_ctrl --> app
